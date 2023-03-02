@@ -41,7 +41,7 @@
                 $PROJECT_VISIBILITY_INDEX = 5;
                 $MEMBER_ACQUISITION = 6;
 
-                echo '<img width=50px height=50px src="' . '/WebTech_TeamProject/images/project_images/' . $deleted_project[$PROJECT_NAME_INDEX] . "-" . 
+                echo '<img width=50px height=50px src="/WebTech_TeamProject/images/project_images/' . $deleted_project[$PROJECT_NAME_INDEX] . "-" . 
                 $deleted_project[$PROJECT_IMAGE_INDEX] . '">' . '<b style="padding-left: 20px">' . $deleted_project[$PROJECT_NAME_INDEX] . '</b>' . 
                 '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/recover_project.php?project_id=' . $deleted_project[$PROJECT_ID_INDEX] . 
                 '&action=recover-project">Recover</a>' .

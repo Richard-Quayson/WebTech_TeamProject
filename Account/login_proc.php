@@ -43,7 +43,7 @@
 
                     // current date
                     $datetime = mktime(
-                        date("H") - 1, date("i"), date("s"), date("m"), date("d"), date("Y")
+                        date("H"), date("i"), date("s"), date("m"), date("d"), date("Y")
                     );
 
                     $current_date = date("Y-m-d H:i:s", $datetime);

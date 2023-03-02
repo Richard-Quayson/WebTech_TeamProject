@@ -177,4 +177,21 @@
             return -1;
         }
     }
+
+    function is_project_member($user_id, $project_id) {
+        // establish db connection
+        require("db.php");
+
+        // check if user is a project member
+        $select_sql = $connection->prepare("SELECT * FROM project_members WHERE user_id=? AND project_id=?");
+        $select_sql->bind_param("ii", $user_id, $project_id);
+        $select_sql->execute();
+        $result = $select_sql->get_result();
+
+        if ($result->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 ?>
