@@ -82,7 +82,6 @@
             <option value="SnapChat">SnapChat</option>
             <option value="TitTok">TitTok</option>
             <option value="Discord">Discord</option>
-            <option value="Other">Other</option>
         </select>
         <br><br>
 

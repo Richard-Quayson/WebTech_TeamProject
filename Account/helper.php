@@ -78,6 +78,41 @@
     }
 
 
+    // initial function
+    // function get_project_details($value, $attribute) {
+    //     // establish db connection
+    //     require('db.php');
+    
+    //     // write query to retrieve project details
+    //     if ($attribute == "project_id") {
+    //         $sql = $connection->prepare("SELECT * FROM project WHERE $attribute=?");
+    //         $sql->bind_param("i", $value);
+    //     } else if ($attribute == "project_name") {
+    //         $sql = $connection->prepare("SELECT * FROM project WHERE $attribute=?");
+    //         $sql->bind_param("s", $value);
+    //     } else {
+    //         return -1;
+    //     }
+
+    //     // execute the query
+    //     $sql->execute();
+    //     $result = $sql->get_result();
+
+    //     // return the dictionary if successful and -1 otherwise
+    //     if ($result->num_rows > 0) {
+    //         if ($result->num_rows == 1) {
+    //             $row = $result->fetch_assoc();
+    //         } else {
+    //             $row = $result->fetch_all();
+    //         }
+    //         return $row;
+    //     } else {
+    //         return -1;
+    //     }
+    // }
+
+
+
     function get_project_details($value, $attribute) {
         // establish db connection
         require('db.php');
@@ -89,9 +124,6 @@
         } else if ($attribute == "project_name") {
             $sql = $connection->prepare("SELECT * FROM project WHERE $attribute=?");
             $sql->bind_param("s", $value);
-        } else if ($attribute == "user_id") {
-            $sql = $connection->prepare("SELECT * FROM project WHERE $attribute=?");
-            $sql->bind_param("i", $value);
         } else {
             return -1;
         }
@@ -102,12 +134,27 @@
 
         // return the dictionary if successful and -1 otherwise
         if ($result->num_rows > 0) {
-            if ($result->num_rows == 1) {
-                $row = $result->fetch_assoc();
-            } else {
-                $row = $result->fetch_all();
-            }
+            $row = $result->fetch_assoc();
             return $row;
+        } else {
+            return -1;
+        }
+    }
+
+
+    function get_user_projects($user_id) {
+        // establish db connection
+        require("db.php");
+
+        // select query to retrieve all user projects
+        $get_sql = $connection->prepare("SELECT * FROM project_members WHERE user_id=?");
+        $get_sql->bind_param("i", $user_id);
+        $get_sql->execute();
+        $result = $get_sql->get_result();
+
+        if ($result->num_rows > 0) {
+            $user_projects = $result->fetch_all();
+            return $user_projects;
         } else {
             return -1;
         }
@@ -178,7 +225,7 @@
         }
     }
 
-    function is_project_member($user_id, $project_id) {
+    function get_project_member($user_id, $project_id) {
         // establish db connection
         require("db.php");
 
@@ -189,9 +236,94 @@
         $result = $select_sql->get_result();
 
         if ($result->num_rows > 0) {
-            return true;
+            $project_member = $result->fetch_assoc();
+            return $project_member;
         } else {
-            return false;
+            return -1;
+        }
+    }
+
+    function is_project_admin($user_id, $project_id) {
+        // establish db connection
+        require("db.php");
+
+        // retrieve admin role id
+        $admin_role_details = get_admin_role();
+
+        // retrieve project member
+        $project_member = get_project_member($user_id, $project_id);
+
+        // if not project member, return false
+        if ($project_member != -1) {
+            // if project member, check if the member is an admin
+            // check if member role is admin
+            if ($project_member["role_id"] == $admin_role_details["role_id"]) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return -1;
+        }
+    }
+
+    function get_project_members($project_id) {
+        // establish db connection
+        require("db.php");
+
+        // retrieve all project members
+        $get_members = $connection->prepare("SELECT * FROM project_members WHERE project_id=?");
+        $get_members->bind_param("i", $project_id);
+        $get_members->execute();
+        $members = $get_members->get_result();
+
+        // check if the query was successful
+        if ($members->num_rows > 0) {
+            // fetch associated data
+            $project_members = $members->fetch_all();
+            return $project_members;
+        } else {
+            return -1;
+        }
+    }
+
+    function get_requested_project_members($project_id) {
+        // establish db connection
+        require("db.php");
+
+        // retrieve all people who have requested to join the project
+        $get_requested_members = $connection->prepare("SELECT * FROM requested_project WHERE project_id=?");
+        $get_requested_members->bind_param("i", $project_id);
+        $get_requested_members->execute();
+        $members = $get_requested_members->get_result();
+
+        // check if the query was successful
+        if ($members->num_rows > 0) {
+            // fetch associated data
+            $requested_members = $members->fetch_all();
+            return $requested_members;
+        } else {
+            return -1;
+        }
+    }
+
+    function get_user_defined_roles($user_id) {
+        // establish db connection
+        require("db.php");
+
+        // retrieve all roles belonging to the specified user
+        $get_roles = $connection->prepare("SELECT * FROM user_roles WHERE user_id=?");
+        $get_roles->bind_param("i", $user_id);
+        $get_roles->execute();
+        $roles = $get_roles->get_result();
+
+        // check if the query was successful
+        if ($roles->num_rows > 0) {
+            // fetch associated data
+            $user_roles = $roles->fetch_all();
+            return $user_roles;
+        } else {
+            return -1;
         }
     }
 ?>
