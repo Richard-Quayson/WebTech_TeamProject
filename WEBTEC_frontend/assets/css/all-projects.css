@@ -8,6 +8,7 @@
 
 .sidebar{
     max-width: 20vw;
+    
     position: fixed;
     left: 0;
     top: 0;
@@ -62,9 +63,6 @@
     background-color: rgba(250, 176, 135, 0.88);
 }
 
-.main-content{
-    margin-left: 280px;
-}
 
 header{
     height: 70px;
@@ -81,7 +79,7 @@ header{
 }
 
 .main-content{
-    margin-left: 280px;
+    margin-left: 20vw;
     /* float: left; */
 }
 
@@ -90,6 +88,19 @@ main{
     min-height: calc(100vh-70px);
     background: #f1f5f9;
     width: 100%;
+}
+
+#right-side{
+    float: right;
+    margin-right: 40vw;
+}
+
+.input-field{
+    margin-top: 2vh;
+    margin-left: 30vh;
+    outline:none;
+    /* border: none; */
+    margin-bottom: 5vh;
 }
 
 

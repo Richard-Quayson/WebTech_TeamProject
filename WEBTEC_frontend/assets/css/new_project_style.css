@@ -7,7 +7,7 @@
 }
 
 .sidebar{
-    min-width: 20vw;
+    max-width: 20vw;
     position: fixed;
     left: 0;
     top: 0;
@@ -60,7 +60,7 @@
 }
 
 .main-content{
-    margin-left: 280px;
+    margin-left: 20vw;
 }
 
 header{
@@ -77,10 +77,7 @@ header{
     font-size: 1.4rem;
 }
 
-.main-content{
-    margin-left: 280px;
-    
-}
+
 
 main{
     padding: 1.5rem;
