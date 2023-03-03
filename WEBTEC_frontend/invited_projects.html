@@ -14,7 +14,7 @@
     <div class="sidebar" width="100%">
         <div class="sidebar-main">
             <div class="sidebar-user">
-                <img src="assets/img/Ellipse 2.png" alt="">
+                <img src="assets/img/Ellipse 2.png"  width="100%" alt="">
                 <div>
                     <h3>Sandra Koomson</h3>
                 </div>
@@ -114,6 +114,8 @@
                     <!-- decline button -->
                     <td>
                         <a href=""id="decline"
+                        data-bs-toggle="modal"
+                        data-bs-target="#decline-modal"
                         class="btn btn-primary"
                         href="#"
                         role="button"
@@ -125,15 +127,21 @@
                   <tr>
                     <th scope="row">2</th>
                     <td>Materials Engineering</td>
+                    <!-- accept button -->
                     <td>
                         <a href=""id="accept"
+                        data-bs-toggle="modal"
+                        data-bs-target="#accept-modal"
                         class="btn btn-primary"
                         href="#"
                         role="button"
                         >Accept</a>
                     </td>
+                    <!-- decline button -->
                     <td>
                         <a href=""id="decline"
+                        data-bs-toggle="modal"
+                        data-bs-target="#decline-modal"
                         class="btn btn-primary"
                         href="#"
                         role="button"
@@ -145,15 +153,21 @@
                   <tr>
                     <th scope="row">3</th>
                     <td>Business And Statistics Project</td>
+                    <!-- accept button -->
                     <td>
                         <a href=""id="accept"
+                        data-bs-toggle="modal"
+                        data-bs-target="#accept-modal"
                         class="btn btn-primary"
                         href="#"
                         role="button"
                         >Accept</a>
                     </td>
+                    <!-- decline button -->
                     <td>
                         <a href=""id="decline"
+                        data-bs-toggle="modal"
+                        data-bs-target="#decline-modal"
                         class="btn btn-primary"
                         href="#"
                         role="button"
@@ -383,15 +397,34 @@
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Accept</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    ...
+                    Do you want to accept?
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary">Yes</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="decline-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Accept</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    Are you sure you want to decline?
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger">Yes</button>
                     </div>
                 </div>
                 </div>
