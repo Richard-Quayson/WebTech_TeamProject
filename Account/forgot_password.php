@@ -78,7 +78,7 @@
 
                     $subject = 'Password Reset for ' . $user["firstname"] . ' ' . $user["lastname"] . ' - WebGeeks.com';
                     
-                    $body = '<p>Dear ' . $user["firstname"] . '</p>';
+                    $body = '<p>Dear ' . $user["firstname"] . ',</p>';
                     $body .= '<p>Please click on the following link to reset your password.</p>';
                     $body .= '<p>Click on this <a href="127.0.0.1/WebTech_TeamProject/Account/reset_password.php?reset_key=' . $reset_key . 
                         '&email=' . $email . '&action=reset" target="_blank">link</a> to reset password!</p>';
@@ -93,11 +93,11 @@
                     $mail->IsSMTP();
                     $mail->CharSet = "utf-8";
                     $mail->SMTPAuth = true;                          // ensure SMTP authentication
-                    $mail->SMTPSecure = "ssl";
+                    $mail->SMTPSecure = 'ssl';
                     $mail->Host = "smtp.gmail.com";                  // set gmail as the SMTP server
                     $mail->Port = 465;                               // set the SMTP port for the server 
                     $mail->Username = $sender_email;                 // sender email
-                    $mail->Password = "xmxtptifbktpeoqj";            // sender's gmail app password
+                    $mail->Password = "mgsyuknntllkmdel";            // sender's gmail app password
                     $mail->From = $sender_email;                     // sender email
                     $mail->FromName = "Web Geeks";                   // sender's name
                     $mail->AddAddress($recipient_email);             // add recipient email
@@ -106,7 +106,7 @@
                     $mail->Body = $body;                             // body of the email
 
                     // send the mail
-                    $mail->Send();
+                    // $mail->Send();
 
                     // check if email was sent
                     if ($mail->Send()) {

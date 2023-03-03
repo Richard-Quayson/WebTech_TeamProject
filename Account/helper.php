@@ -326,4 +326,24 @@
             return -1;
         }
     }
+
+    function get_invited_member($email, $project_id) {
+        // establish db connection
+        require("db.php");
+
+        // retrieve invited member details
+        $get_invited_member = $connection->prepare("SELECT * FROM invited_members WHERE email=? AND project_id=?");
+        $get_invited_member->bind_param("si", $email, $project_id);
+        $get_invited_member->execute();
+        $member = $get_invited_member->get_result();
+
+        // check if the query was successful
+        if ($member->num_rows > 0) {
+            // fetch associated data
+            $invited_member = $member->fetch_assoc();
+            return $invited_member;
+        } else {
+            return -1;
+        }
+    }
 ?>
