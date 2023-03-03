@@ -90,11 +90,3 @@ create table invited_members(
     foreign key (project_id) references Project (project_id) on delete cascade on update cascade,
     foreign key (role_id) references Project_Role (role_id) on delete cascade on update cascade
 );
-
-
-////
-TESTS
-create table test_image(
-    image_id int auto_increment primary key,
-    image varchar(100) not null
-);
