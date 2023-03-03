@@ -65,53 +65,52 @@
 
 
         <div class="sidebar-menu">
-                <!-- <div class="menu-head"> 
-                    <span>Dashboard</span>
-                </div> -->
-                <ul>
-                    <li>
-                        <a href="user_dashboard.php">
-                        <span><img src="https://img.icons8.com/ios/50/null/project-management.png"height="25px"/></span>
-                       <span><strong>Projects</strong></span>
-                       
-                        </a>
-                    </li>
-                    <li>
-                        <a href="your_projects.php">
-                        <span><img src="https://img.icons8.com/ios/50/null/teacher.png" height="25px"/></span>
-                        <span width="100%">Your Projects</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="requested_projects.php">
-                        <span><img src="https://img.icons8.com/windows/32/null/how-quest.png"height="25px"/></span>
-                        <span>Requested Projects</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="invited_projects.php">
-                        <span><img src="https://img.icons8.com/ios/50/null/send-hot-list.png"height="25px"/></span>
-                        <span>Invited Projects</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="trash_page.php">
-                        <span><img src="https://img.icons8.com/ios/50/null/empty-trash.png" height="25px"/></span>
-                        <span>Trash</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                        id="btn"
-                        class="btn btn-primary ms-lg-3"
-                        href="logout.php"
-                        role="button"
-                        >Log out
-                        <img src="https://img.icons8.com/ios-glyphs/30/null/logout-rounded-left.png"height="23px"/>
-                        </a>
-                    </li>
-                    
-                </ul>
+            <!-- <div class="menu-head"> 
+                <span>Dashboard</span>
+            </div> -->
+            <ul>
+                <li>
+                    <a href="user_dashboard.php">
+                    <span><img src="https://img.icons8.com/ios/50/null/project-management.png"height="25px"/></span>
+                    <span><strong>Projects</strong></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="your_projects.php">
+                    <span><img src="https://img.icons8.com/ios/50/null/teacher.png" height="25px"/></span>
+                    <span width="100%">Your Projects</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="requested_projects.php">
+                    <span><img src="https://img.icons8.com/windows/32/null/how-quest.png"height="25px"/></span>
+                    <span>Requested Projects</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="invited_projects.php">
+                    <span><img src="https://img.icons8.com/ios/50/null/send-hot-list.png"height="25px"/></span>
+                    <span>Invited Projects</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trash_page.php">
+                    <span><img src="https://img.icons8.com/ios/50/null/empty-trash.png" height="25px"/></span>
+                    <span>Trash</span>
+                    </a>
+                </li>
+                <li>
+                    <a
+                    id="btn"
+                    class="btn btn-primary ms-lg-3"
+                    href="logout.php"
+                    role="button"
+                    >Log out
+                    <img src="https://img.icons8.com/ios-glyphs/30/null/logout-rounded-left.png"height="23px"/>
+                    </a>
+                </li>
+                
+            </ul>
                 
         </div>
     </div>
