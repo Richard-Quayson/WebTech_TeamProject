@@ -1,0 +1,300 @@
+/* .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  } */
+  
+.content {
+    display: flex;
+}
+img#profile.rounded-circle{
+    justify-content: center;
+    width:100%;
+    height:100%;
+
+}
+
+.left {
+    flex: 5;
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+}
+
+.members {
+    padding: 20px 0;
+}
+
+img#profile{
+transform: translate(30%, -8%);
+padding:8%;
+}
+
+
+/* #accordionSidebar{
+transform: translate(10%, -8%);
+   
+} */
+li a{
+    margin-bottom:8%;
+}
+li a:hover{
+    border-bottom:2px solid crimson;
+    
+}
+.member-item {
+    display: flex;
+    padding: 5px 0;
+}
+
+.member-name,
+.member-role,
+#member-role  {
+    flex: 3;
+}
+
+#member-title {
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.right {
+    flex: 5;
+    padding: 0 2em;
+}
+
+.requested-item {
+    display: flex;
+    padding: 5px 0;
+}
+
+.item-name {
+    flex: 4;
+}
+
+.item-controls {
+    flex: 2;
+    display: flex;
+}
+
+#add-button:hover {
+    cursor: pointer;
+    font-weight: bolder;
+}
+#add-member:hover {
+    cursor: pointer;
+    font-weight: bolder;
+}
+#invite-member:hover {
+    cursor: pointer;
+    font-weight: bolder;
+}
+.accept-item {
+    padding: 0 1em;
+}
+
+#mybar{
+    border-bottom:2px solid #e0dddd;
+}
+.accept-item .fa-regular {
+    color: rgba(235, 174, 142, 1);
+    font-size: 1.5em;
+}
+
+.decline-item .fa-regular {
+    color: red;
+    font-size: 1.5em;
+}
+
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  right: 0;
+
+  overflow: auto; /* Enable scroll if needed */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    /* height: 40vh;  */
+  }
+
+#myModal {
+    width: 30vw;
+    top: 52vh;
+    left: 20vw;
+}
+
+  /* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  
+}
+
+#form{
+    display: none;
+    justify-content:center;
+    width:auto;
+    text-align:center;
+    padding:5px;
+    border:1px solid rgb(218, 210, 210);
+    border-radius:10px;
+    margin-top:1%;
+    padding-right:15px;
+    margin-bottom:2%;
+}
+
+input{
+    padding:2px 8px;
+    margin-bottom:20px; 
+    
+}
+label{
+    width:50px;
+    display:inline-block;
+}
+#send{
+    border-radius:5px;
+    width:40%;
+    margin-top:2%;
+    margin-left:8%;
+    margin-bottom: 10%;
+    border-color:crimson;
+    
+}
+#send:hover{
+    color:white;
+    background-color:crimson;
+}
+
+.icons-house{
+    display:flex;
+    position:absolute;
+    right:5%;
+    justify-content:space-between;
+    
+}
+.eye{
+    display:inline-flex; 
+    padding-top:12px;
+    justify-content: center;
+    margin-top:5%;
+}
+#eye1{
+    margin-right: 55px;
+}
+
+
+div.visibility{
+    font-size:25px;
+}
+
+p.visibility-text{
+    width:180px;
+    font-size: 22px; 
+}
+
+.visibility2{
+    margin-left:80px;
+    font-size: 22px; 
+}
+p.visibility-text1{
+    width:210px;
+    font-size: 22px; 
+}
+.container-fluid{
+    margin-top:3%;
+}
+.projects{
+    font-weight:bold;
+    color:#614848;
+    margin-bottom:2%;
+    
+}
+.right{
+    margin-top:4%;
+}
+h3.description{
+    font-weight:bold;
+    color:#a95757;
+}
+.tooltiptext {
+    display: none;
+    width:250px;
+    background-color: rgb(76, 72, 72);
+    color: #e3dbdb;
+    border-radius: 6px;
+    padding: 5px 10px;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    right:-2%;
+     
+  }
+  
+  
+  #button-text {
+    /* display: block; */
+    border:none;
+    padding: 12px;
+    background-color: rgba(235, 174, 142, 1);
+    border-radius: 7px;
+    margin-top: 10px; /* Added */
+  }
+  
+  
+#invitation{
+    margin-top:1%;
+    display:none;
+}
+.send-buttons{
+    display:inline;
+}
+#text-entry{
+    outline:none;
+}
+.send-buttons2{
+    display:inline;
+    margin-left:2%;
+}
+#sender{
+    color:rgb(86, 123, 86);
+}
+#sender:hover{
+    color:rgb(68, 172, 68); 
+}
+.clos{
+    color:rgb(171, 75, 75);
+    cursor:pointer;
+}
+.clos:hover{
+    color:rgb(240, 30, 30);
+    cursor:pointer;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
