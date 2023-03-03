@@ -98,51 +98,81 @@
 
 
         // retrieve and echo user projects
-        $projects = get_project_details($_SESSION["user_id"], "user_id");
+        $projects = get_user_projects($_SESSION["user_id"]);
 
         echo "<b>Your Projects:</b><br>";
 
         // check if the query returned a result
         if ($projects != -1) {
+            // project_members indexes in resulting array
+            $USER_ID_INDEX = 0;
+            $PROJECT_ID_INDEX = 1;
+            $ROLE_ID_INDEX = 2;
+            
+            // loop through returned projects and display to user
+            foreach ($projects as $project) {
+                $project_details = get_project_details($project[$PROJECT_ID_INDEX], "project_id");
 
-            // check the number of arrays in the $projects array after filtering
-            // if there are arrays, then the number of projects is more than one and we can use a loop and indexes to access values
-            // else the, number of project is one and we can use attribute names to access values
-            $filtered_projects = array_filter($projects, 'is_array');
-            if (count($filtered_projects) > 0) {
-                
-                // project attribute positions in resulting array
-                $PROJECT_ID_INDEX = 0;
-                $USER_ID_INDEX = 1;
-                $PROJECT_NAME_INDEX = 2;
-                $PROJECT_DESCRIPTION_INDEX = 3;
-                $PROJECT_IMAGE_INDEX = 4;
-                $PROJECT_VISIBILITY_INDEX = 5;
-                $MEMBER_ACQUISITION_INDEX = 6;
-                $IS_DELETED_INDEX = 7;
-
-                // loop through returned projects and display to user
-                foreach ($projects as $project) {
-                    // if project has been deleted, don't show it
-                    if ($project[$IS_DELETED_INDEX] == 0) {
-                        echo '<a href="view_project.php?project_id=' . $project[$PROJECT_ID_INDEX] . '">' . $project[$PROJECT_NAME_INDEX] . '</a>' .
-                        '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/update_project.php?project_id=' . $project[$PROJECT_ID_INDEX] . '">Edit</a>' .
-                        '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/delete_project.php?project_id=' . $project[$PROJECT_ID_INDEX] . '&action=delete">Delete</a><br>';
-                    }
-                }
-            } else {
-                if ($projects["is_deleted"] == 0) {
-                    echo '<a href="view_project.php?project_id=' . $projects["project_id"] . '">' . $projects["project_name"] . '</a>' .
-                    '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/update_project.php?project_id=' . $projects["project_id"] . '">Edit</a>' .
-                    '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/delete_project.php?project_id=' . $projects["project_id"] . '&action=delete">Delete</a><br>';
+                // if project has been deleted, don't show it
+                if ($project_details["is_deleted"] == 0) {
+                    echo '<a href="/WebTech_TeamProject/Project/view_project.php?project_id=' . $project_details["project_id"] . '">' . $project_details["project_name"] . '</a>' .
+                    '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/update_project.php?project_id=' . $project_details["project_id"] . '">Edit</a>' .
+                    '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/delete_project.php?project_id=' . $project_details["project_id"] . '&action=delete">Delete</a><br>';
                 } else {
                     echo 'You have not created any project yet. Click <a href="create_project.php">here</a> to create one. <br>';
                 }
             }
-
         } else {
             echo 'You have not created any project yet. Click <a href="create_project.php">here</a> to create one. <br>';
         }
+        
+
+        // INITIAL LOGIC
+        // --------------------
+        // retrieve and echo user projects
+        // $projects = get_project_details($_SESSION["user_id"], "user_id");
+        // echo "<b>Your Projects:</b><br>";
+        // check if the query returned a result
+        // if ($projects != -1) {
+
+        //     // check the number of arrays in the $projects array after filtering
+        //     // if there are arrays, then the number of projects is more than one and we can use a loop and indexes to access values
+        //     // else the, number of project is one and we can use attribute names to access values
+        //     $filtered_projects = array_filter($projects, 'is_array');
+        //     if (count($filtered_projects) > 0) {
+                
+        //         // project attribute positions in resulting array
+        //         $PROJECT_ID_INDEX = 0;
+        //         $USER_ID_INDEX = 1;
+        //         $PROJECT_NAME_INDEX = 2;
+        //         $PROJECT_DESCRIPTION_INDEX = 3;
+        //         $PROJECT_IMAGE_INDEX = 4;
+        //         $PROJECT_VISIBILITY_INDEX = 5;
+        //         $MEMBER_ACQUISITION_INDEX = 6;
+        //         $IS_DELETED_INDEX = 7;
+
+        //         // loop through returned projects and display to user
+        //         foreach ($projects as $project) {
+        //             // if project has been deleted, don't show it
+        //             if ($project[$IS_DELETED_INDEX] == 0) {
+        //                 echo '<a href="/WebTech_TeamProject/Project/view_project.php?project_id=' . $project[$PROJECT_ID_INDEX] . '">' . $project[$PROJECT_NAME_INDEX] . '</a>' .
+        //                 '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/update_project.php?project_id=' . $project[$PROJECT_ID_INDEX] . '">Edit</a>' .
+        //                 '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/delete_project.php?project_id=' . $project[$PROJECT_ID_INDEX] . '&action=delete">Delete</a><br>';
+        //             }
+        //         }
+        //     } else {
+        //         if ($projects["is_deleted"] == 0) {
+        //             echo '<a href="/WebTech_TeamProject/Project/view_project.php?project_id=' . $projects["project_id"] . '">' . $projects["project_name"] . '</a>' .
+        //             '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/update_project.php?project_id=' . $projects["project_id"] . '">Edit</a>' .
+        //             '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/delete_project.php?project_id=' . $projects["project_id"] . '&action=delete">Delete</a><br>';
+        //         } else {
+        //             echo 'You have not created any project yet. Click <a href="create_project.php">here</a> to create one. <br>';
+        //         }
+        //     }
+
+        // } else {
+        //     echo 'You have not created any project yet. Click <a href="create_project.php">here</a> to create one. <br>';
+        // }
 
 
 
@@ -167,8 +197,8 @@
 
                 // if the project hasn't been deleted and the project member acquisition is open, display project
                 if ($project_details["is_deleted"] != 1 && $project_details["member_acquisition"] == "Open") {
-                    echo '<a href="view_project.php?project_id=' . $project_details["project_id"] . '">' . $project_details["project_name"] . '</a>' . 
-                    '<a style="padding-left: 20px" href="delete_request.php?project_id=' . $project_details["project_id"] . '">Delete Request</a><br>';                
+                    echo '<a href="/WebTech_TeamProject/Project/view_project.php?project_id=' . $project_details["project_id"] . '">' . $project_details["project_name"] . '</a>' . 
+                    '<a style="padding-left: 20px" href="/WebTech_TeamProject/Project/delete_request.php?project_id=' . $project_details["project_id"] . '&action=delete-request">Delete Request</a><br>';                
                 } 
             }
         } else {
@@ -198,7 +228,7 @@
                 // retrieve role details
                 $role_details = get_role_details($role[$ROLE_ID_INDEX]);
 
-                echo '<a href="view_role.php?role=' . $role_details["role_id"] . '">' . $role_details["role_name"] . '</a>' .
+                echo '<a href="/WebTech_TeamProject/Project/view_role.php?role=' . $role_details["role_id"] . '">' . $role_details["role_name"] . '</a>' .
                 '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/delete_role.php?role_id=' . $role_details["role_id"] . '&action=delete">Delete</a><br>';           
             }
 

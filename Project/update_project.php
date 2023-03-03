@@ -124,10 +124,6 @@
         <input type="file" name="image" id="image">
         <br><br>
 
-        <?php echo "/WebTech_TeamProject/images/project_images/" . $project_details["project_name"] . 
-            "-" . $project_details["project_image"] ?>
-            <br>
-
         <label for="project-visibility"><b>Project visibility:</b></label>
         <select name="project-visibility" id="project-visibility">
             <?php 
