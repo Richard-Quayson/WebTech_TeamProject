@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php ?></title>
+    <title>View Project</title>
 </head>
 <body>
     <?php
@@ -33,37 +33,42 @@
             // retrieve project details
             $project_details = get_project_details($project_id, "project_id");
 
-            echo '<b>Project Name: </b><br>' . $project_details["project_name"] . "<br><br>" . 
-            '<img width=100px height=100px src="/WebTech_TeamProject/images/project_images/' . 
-            $project_details["project_name"]. "-" . $project_details["project_image"] . '"><br>' .
-            '<b>Project Description: </b><br>' . $project_details["project_description"] . "<br><br>" .
-            '<b>Project Visibility: </b>' . $project_details["visibility"] . "<br><br>" .
-            '<b>Member Acquisition: </b>' . $project_details["member_acquisition"] . "<br><br>";
-
-            echo "<b>Project Members: </b><br>";
-
-            // retrieve all project members
-            $project_members = get_project_members($project_id);
-
-            // loop through the members and echo their roles
-            if ($project_members == -1) {
-                echo "Failed to load project members.";
+            if ($project_details == -1) {
+                header("Location: /WebTech_TeamProject/Account/user_dashboard.php");
+                exit();
             } else {
-                // project_member attributes and corresponding indexes
-                $USER_ID_INDEX = 0;
-                $PROJECT_ID_INDEX = 1;
-                $ROLE_ID_INDEX = 2;
-                
-                foreach ($project_members as $project_member) {
-                    // retrieve details of the member
-                    $member_details = get_user_details($project_member[$USER_ID_INDEX], "user_id");
+                echo '<b>Project Name: </b><br>' . $project_details["project_name"] . "<br><br>" . 
+                '<img width=100px height=100px src="/WebTech_TeamProject/images/project_images/' . 
+                $project_details["project_name"]. "-" . $project_details["project_image"] . '"><br>' .
+                '<b>Project Description: </b><br>' . $project_details["project_description"] . "<br><br>" .
+                '<b>Project Visibility: </b>' . $project_details["visibility"] . "<br><br>" .
+                '<b>Member Acquisition: </b>' . $project_details["member_acquisition"] . "<br><br>";
 
-                    // retrieve the role details
-                    $role_details = get_role_details($project_member[$ROLE_ID_INDEX]);
+                echo "<b>Project Members: </b><br>";
 
-                    // echo user and role details
-                    echo $member_details["firstname"] . ' ' . $member_details["lastname"] . ': ' . 
-                    '<a style="padding-left: 20px"></a>' . $role_details["role_name"] . '<br>';
+                // retrieve all project members
+                $project_members = get_project_members($project_id);
+
+                // loop through the members and echo their roles
+                if ($project_members == -1) {
+                    echo "Failed to load project members.";
+                } else {
+                    // project_member attributes and corresponding indexes
+                    $USER_ID_INDEX = 0;
+                    $PROJECT_ID_INDEX = 1;
+                    $ROLE_ID_INDEX = 2;
+                    
+                    foreach ($project_members as $project_member) {
+                        // retrieve details of the member
+                        $member_details = get_user_details($project_member[$USER_ID_INDEX], "user_id");
+
+                        // retrieve the role details
+                        $role_details = get_role_details($project_member[$ROLE_ID_INDEX]);
+
+                        // echo user and role details
+                        echo $member_details["firstname"] . ' ' . $member_details["lastname"] . ': ' . 
+                        '<a style="padding-left: 20px"></a>' . $role_details["role_name"] . '<br>';
+                    }
                 }
             }
 
@@ -93,6 +98,8 @@
 
                     }
                 }
+
+                echo '<br><br><a href="/WebTech_TeamProject/Project/invite_member.php?project_id=' . $project_id . '">Invite Members</a>';
             }
 
         } else {

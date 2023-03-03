@@ -176,7 +176,7 @@
 
 
 
-        // retrieve and echo request projects
+        // retrieve and echo requested projects
         $get_sql = $connection->prepare("SELECT * FROM requested_project WHERE user_id=?");
         $get_sql->bind_param("i", $_SESSION["user_id"]);
         $get_sql->execute();
@@ -203,6 +203,36 @@
             }
         } else {
             echo 'You have not requested to join any project yet.<br>';
+        }
+
+        // retrieve and echo invited projects
+        $get_sql = $connection->prepare("SELECT * FROM invited_members WHERE email=?");
+        $get_sql->bind_param("s", $user_details["email"]);
+        $get_sql->execute();
+        $row = $get_sql->get_result();
+
+        echo "<b><br>Invited Projects:</b><br>";
+
+        // check if the request was successful
+        if ($row->num_rows > 0) {
+            // fetch associated data from get request
+            $invited_projects = $row->fetch_all();
+            // loop through returned result and echo project name
+            foreach ($invited_projects as $invited_project) {
+                $RPROJECT_ID_INDEX = 0;
+
+                // retrieve information for the project
+                $project_details = get_project_details($invited_project[$RPROJECT_ID_INDEX], "project_id");
+
+                // if the project hasn't been deleted and the project member acquisition is open, display project
+                if ($project_details["is_deleted"] != 1 && $project_details["member_acquisition"] == "Open") {
+                    echo '<a href="/WebTech_TeamProject/Project/view_project.php?project_id=' . $project_details["project_id"] . '">' . $project_details["project_name"] . '</a>' . 
+                    '<a style="padding-left: 20px" href="/WebTech_TeamProject/Project/accept_invite.php?project_id=' . $project_details["project_id"] . '&action=accept-invite">Accept Invite</a>' .
+                    '<a style="padding-left: 20px" href="/WebTech_TeamProject/Project/decline_invite.php?project_id=' . $project_details["project_id"] . '&action=decline-invite">Decline Invite</a><br>';                
+                } 
+            }
+        } else {
+            echo 'You have not been invited to join any project yet.<br>';
         }
 
 
