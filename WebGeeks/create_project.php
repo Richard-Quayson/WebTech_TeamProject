@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>Profile</title>
-    <link rel="stylesheet" href="assets/css/new_project_style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <title>Create Project</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/project_view.css">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.3.0/css/all.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
@@ -117,156 +119,120 @@
     ?>
 
     
-    <div class="sidebar">
-        <div class="sidebar-main">
-            <div class="sidebar-user">
-                <?php if ($user_details["profile_image"] == NULL) {
-                    echo '<img src="/WebTech_TeamProject/WebGeeks/assets/img/default_profile.png" width="100%" alt="">';
-                } else {
-                    echo '<img src="/WebTech_TeamProject/WebGeeks/assets/images/profile_images/' . $user_details["user_id"]  . '-' . 
-                    $user_details["profile_image"] . '" width="100% alt="">';
-                }
+    <div id="wrapper">
+        <!-- <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 " style="background: rgba(235, 174, 142, 1);"> -->
+            <div style="background: rgba(235, 174, 142, 1); min-height: 100vh;">
+                <div id="nav-contain" style=" padding: 2em;">
+
+                    <div style="height: 200px; margin: auto; width: 200px">
+                        <?php if ($user_details["profile_image"] == NULL) {
+                            echo '<img id = "profile" class="rounded-circle mb-3 mt-4" src="/WebTech_TeamProject/WebGeeks/assets/img/default_profile.png" width="160" height="160" style="margin-left: -68px;">';
+                        } else {
+                            echo '<img id = "profile" class="rounded-circle mb-10 mt-4" src="/WebTech_TeamProject/WebGeeks/assets/images/profile_images/' . $user_details["user_id"]  . '-' . $user_details["profile_image"] . '"' .
+                            'width="160" height="80" style="margin-left: -68px;">';
+                        }
+                        ?>
+                    </div>
+
+                    <div>
+                        <h3 style="color: black; padding: 10px 5px;"><?php echo $user_details["firstname"] . " " . $user_details["lastname"] ?></h3>
+                    </div>
                     
-                ?>
-                
-                <div>
-                    <h3><?php echo $user_details["firstname"] . " " . $user_details["lastname"] ?></h3>
+
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="link1" href="user_dashboard.php">
+                                <img src="assets/img/Project%20Management.png" width="30" height="22" style="width: 31px;height: 31px;">
+                                <span style="margin: 4px;color: var(--bs-black);">Projects</span>
+                            </a>
+                            <div style="padding-left: 2em;">
+                                <a class="nav-link active" id="link-3" href="your_projects.php">
+                                    <img src="assets/img/Training.png" width="26" height="27">
+                                    <span style="margin: 4px;color: var(--bs-black);">Your Projects</span>
+                                </a>
+                                <a class="nav-link active" id="link-2" href="requested_projects.php">
+                                    <img src="assets/img/How%20Quest.png" width="31" height="24" style="height: 31px;">
+                                    <span style="margin: 4px;color: var(--bs-black);">Request Projects</span>
+                                </a>
+                                <a class="nav-link active" id="link-1" href="invited_projects.php">
+                                    <img src="assets/img/Send%20Hot%20List.png" width="21" height="21" style="width: 31px;height: 31px;">
+                                    <span style="margin: 4px;color: var(--bs-black);">Invited Projects</span>
+                                </a>
+                            </div>
+                            <a class="nav-link active" id="link-1" href="trash_page.php">
+                                <img src="https://img.icons8.com/ios/50/null/empty-trash.png" width="21" height="21" style="width: 31px;height: 31px;">
+                                <span style="margin: 4px;color: var(--bs-black);">Trash</span>
+                            </a>
+                            <a id="logout-btn" class="btn btn-primary ms-lg-3"  href="logout.php" role="button">Log out
+                                <img src="https://img.icons8.com/ios-glyphs/30/null/logout-rounded-left.png"height="23px"/>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"></div>
+                </div>
+            </div>
+        <!-- </nav> -->
+
+        <div class="d-flex flex-column" id="content-wrapper">
+            <nav id = "mybar" class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                <h3 style="padding-left: 1em" class="description">New Project</h3>
+            </nav>                
+
+            <div class="container-fluid">
+                <div class="content">
+
+                        <form method="POST" enctype="multipart/form-data">
+                        <label for="project-name"><b>Project Name:</b></label>
+                        <input type="text" placeholder="Enter Project Name" name="project-name" id="project-name" required>
+                        <br><br>
+
+                        <label for="project-description"><b>Project Description:</b></label>
+                        <input type="text" placeholder="Enter Description" name="project-description" id="project-description" required>
+                        <br><br>
+
+                        <label for="image"><b>Project Image:</b></label>
+                        <input type="file" name="image" id="image">
+                        <br><br>
+
+                        <label for="project-visibility"><b>Project visibility:</b></label>
+                        <select name="project-visibility" id="project-visibility">
+                            <?php 
+                                $visibility_choices = array("Public", "Private");
+
+                                foreach ($visibility_choices as $vis_choice) {
+                                    echo '<option value="' . $vis_choice . '">' . $vis_choice . ' </option>';
+                                }
+                            ?>
+                        </select>
+                        <br><br>
+
+                        <label for="member-acquisition"><b>Can new members join the project?</b></label>
+                        <select name="member-acquisition" id="member-acquisition">
+                            <?php 
+                                $acquisition_choices = array("Open", "Closed");
+
+                                foreach ($acquisition_choices as $acquisition_choice) {
+                                    echo '<option value="' . $acquisition_choice . '">' . $acquisition_choice . ' </option>';
+                                }
+                            ?>
+                        </select>
+                        <br><br>
+
+                        <button type="submit" id="accept" class="btn btn-primary" name="create" value="create">Create Project</button>
+                    </form>
                 </div>
             </div>
         </div>
-
-
-        <div class="sidebar-menu">
-            <!-- <div class="menu-head"> 
-                <span>Dashboard</span>
-            </div> -->
-            <ul>
-                <li>
-                    <a href="user_dashboard.php">
-                    <span><img src="https://img.icons8.com/ios/50/null/project-management.png"height="25px"/></span>
-                    <span><strong>Projects</strong></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="your_projects.php">
-                    <span><img src="https://img.icons8.com/ios/50/null/teacher.png" height="25px"/></span>
-                    <span width="100%">Your Projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="requested_projects.php">
-                    <span><img src="https://img.icons8.com/windows/32/null/how-quest.png"height="25px"/></span>
-                    <span>Requested Projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="invited_projects.php">
-                    <span><img src="https://img.icons8.com/ios/50/null/send-hot-list.png"height="25px"/></span>
-                    <span>Invited Projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="trash_page.php">
-                    <span><img src="https://img.icons8.com/ios/50/null/empty-trash.png" height="25px"/></span>
-                    <span>Trash</span>
-                    </a>
-                </li>
-                <li>
-                    <a
-                    id="btn"
-                    class="btn btn-primary ms-lg-3"
-                    href="logout.php"
-                    role="button"
-                    >Log out
-                    <img src="https://img.icons8.com/ios-glyphs/30/null/logout-rounded-left.png"height="23px"/>
-                    </a>
-                </li>
-                
-            </ul>
-                
-        </div>
     </div>
-
-    <div class="main-content">
-        <header>
-            <div class="header-icons">
-            
-                <button type="submit" id="accept" class="btn btn-primary"
-                    role="button" name="create" value="create"
-                    style="margin-right: 2vw;" >Save
-                </button>
-
-                <a href="user_dashboard.php">
-                    <button 
-                        id="decline"
-                        class="btn btn-primary"
-                        role="button"
-                    >Cancel</button>
-                </a>
                 
-                <span class="las la-bars"></span>
-                <span class="las la-add"></span>
-               
-            </div>
-        </header>
-        <main>
-            <div class="page-header">
-                <h1>New Project</h1>
-            </div>
-            <div class="cards">
- 
-                <form method="POST" enctype="multipart/form-data">
-                    <label for="project-name"><b>Project Name:</b></label>
-                    <input type="text" placeholder="Enter Project Name" name="project-name" id="project-name" required>
-                    <br><br>
-
-                    <label for="project-description"><b>Project Description:</b></label>
-                    <input type="text" placeholder="Enter Description" name="project-description" id="project-description" required>
-                    <br><br>
-
-                    <label for="image"><b>Project Image:</b></label>
-                    <input type="file" name="image" id="image">
-                    <br><br>
-
-                    <label for="project-visibility"><b>Project visibility:</b></label>
-                    <select name="project-visibility" id="project-visibility">
-                        <?php 
-                            $visibility_choices = array("Public", "Private");
-
-                            foreach ($visibility_choices as $vis_choice) {
-                                echo '<option value="' . $vis_choice . '">' . $vis_choice . ' </option>';
-                            }
-                        ?>
-                    </select>
-                    <br><br>
-
-                    <label for="member-acquisition"><b>Can new members join the project?</b></label>
-                    <select name="member-acquisition" id="member-acquisition">
-                        <?php 
-                            $acquisition_choices = array("Open", "Closed");
-
-                            foreach ($acquisition_choices as $acquisition_choice) {
-                                echo '<option value="' . $acquisition_choice . '">' . $acquisition_choice . ' </option>';
-                            }
-                        ?>
-                    </select>
-                    <br><br>
-
-                    <button type="submit" class="create-btn" name="create" value="create">Register</button>
-                </form>
-                            
-            </div>
-        </main>
-    </div>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/theme.js"></script>
-</body>
                
-        <footer class="bg-white sticky-footer">
-            <div class="container my-auto"></div>
-        </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    <footer class="bg-white sticky-footer">
+        <div class="container my-auto"></div>
+    </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     
 </body>
 

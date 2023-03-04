@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Profile</title>
     <link rel="stylesheet" href="assets/css/all-projects.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/project_view.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 </head>
@@ -48,26 +49,25 @@
     <div class="sidebar">
         <div class="sidebar-main">
             <div class="sidebar-user">
-                <?php if ($user_details["profile_image"] == NULL) {
-                    echo '<img src="/WebTech_TeamProject/WebGeeks/assets/img/default_profile.png" width="100%" alt="">';
-                } else {
-                    echo '<img src="/WebTech_TeamProject/WebGeeks/assets/images/profile_images/' . $user_details["user_id"]  . '-' . 
-                    $user_details["profile_image"] . '" width="100% alt="">';
-                }
-                    
-                ?>
+                <div style="height: 200px; margin: auto; width: 200px">
+                    <?php if ($user_details["profile_image"] == NULL) {
+                        echo '<img id = "profile" class="rounded-circle mb-3 mt-4" src="/WebTech_TeamProject/WebGeeks/assets/img/default_profile.png" width="160" height="160" style="margin-left: -68px;">';
+                    } else {
+                        echo '<img id = "profile" class="rounded-circle mb-10 mt-4" src="/WebTech_TeamProject/WebGeeks/assets/images/profile_images/' . $user_details["user_id"]  . '-' . $user_details["profile_image"] . '"' .
+                        'width="160" height="80" style="margin-left: -68px;">';
+                    }
+                    ?>
+                </div>
                 
                 <div>
-                    <h3><?php echo $user_details["firstname"] . " " . $user_details["lastname"] ?></h3>
+                    <h3 style="color: black; padding: 10px 5px;"><?php echo $user_details["firstname"] . " " . $user_details["lastname"] ?></h3>
                 </div>
             </div>
         </div>
 
 
         <div class="sidebar-menu">
-            <!-- <div class="menu-head"> 
-                <span>Dashboard</span>
-            </div> -->
+
             <ul>
                 <li>
                     <a href="user_dashboard.php">
@@ -100,13 +100,8 @@
                     </a>
                 </li>
                 <li>
-                    <a
-                    id="btn"
-                    class="btn btn-primary ms-lg-3"
-                    href="logout.php"
-                    role="button"
-                    >Log out
-                    <img src="https://img.icons8.com/ios-glyphs/30/null/logout-rounded-left.png"height="23px"/>
+                    <a id="logout-btn" class="btn btn-primary ms-lg-3"  href="logout.php" role="button">Log out
+                        <img src="https://img.icons8.com/ios-glyphs/30/null/logout-rounded-left.png"height="23px"/>
                     </a>
                 </li>
                 
@@ -117,7 +112,7 @@
     <div class="main-content">
         <header>
             <div class="header-icons">
-                <a href="new_project.php"><img height="25px" src="https://img.icons8.com/ios-glyphs/30/null/plus-math.png"/></a>
+                <a href="create_project.php"><img height="25px" src="https://img.icons8.com/ios-glyphs/30/null/plus-math.png"/></a>
                 
                 <span class="las la-bars" height="25px" style="margin-right: 2vw; margin-top: 2vh;"></span>
                 
@@ -156,7 +151,7 @@
                                             echo '<div class="col-lg-4 col-sm-6">' .
                                                     '<div class="project">' .
                                                         '<a href="/WebTech_TeamProject/WebGeeks/view_project.php?project_id=' . $project_details["project_id"] . '">' . 
-                                                            '<img src="/WebTech_TeamProject/WebGeeks/assets/images/project_images/' . $project_details["project_name"] . "-" . $project_details["project_image"] . '" width="100%" alt="">' .
+                                                            '<img width=100% height=200px src="/WebTech_TeamProject/WebGeeks/assets/images/project_images/' . $project_details["project_name"] . "-" . $project_details["project_image"] . '" width="100%" alt="">' .
                                                         '</a>' .
                                                     '</div>' .
                                             
@@ -273,7 +268,7 @@
                                             echo '<div class="col-lg-4 col-sm-6">' .
                                                     '<div class="project">' .
                                                         '<a href="/WebTech_TeamProject/WebGeeks/view_project.php?project_id=' . $project_details["project_id"] . '">' . 
-                                                            '<img src="/WebTech_TeamProject/WebGeeks/assets/images/project_images/' . $project_details["project_name"] . "-" . $project_details["project_image"] . '" width="100%" alt="">' .
+                                                            '<img width=100% height=200px src="/WebTech_TeamProject/WebGeeks/assets/images/project_images/' . $project_details["project_name"] . "-" . $project_details["project_image"] . '" width="100%" alt="">' .
                                                         '</a>' .
                                                     '</div>' .
                                             

@@ -62,9 +62,6 @@
     background-color: rgba(250, 176, 135, 0.88);
 }
 
-.main-content{
-    margin-left: 280px;
-}
 
 header{
     height: 70px;
@@ -82,7 +79,6 @@ header{
 
 .main-content{
     margin-left: 280px;
-    /* float: left; */
 }
 
 main{

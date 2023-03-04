@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,24 +43,6 @@
                 // check if the link has expired
                 if ($reset_details["expDate"] >= $current_date) {
                     ?>
-
-                    <!-- <form method="POST" action="" name="reset">
-                        <label for="email"><b>Email</b></label>
-                        <input type="email" placeholder="Enter Email" name="email" id="email"
-                            value = <?php echo $email ?> required>
-                        <br><br>
-
-                        <label for="password"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="password" id="password" required>
-                        <br><br>
-
-                        <label for="psw-repeat"><b>Re-Enter Password</b></label>
-                        <input type="password" placeholder="Repeat Password" name="password-repeat" id="password-repeat" required>
-                        <br><br>
-
-                        <button type="submit" class="reset-btn" name="reset" value="reset">Reset</button>
-
-                    </form> -->
 
                     <div class="container" id="cont1">
                         <div class="row justify-content-center" id="row1">

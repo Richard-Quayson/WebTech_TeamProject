@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>Your Projects</title>
-    <link rel="stylesheet" href="assets/css/all-projects.css">
+    <title>Requested Projects</title>
     <link rel="stylesheet" type="text/css" href="assets/css/project_view.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.3.0/css/all.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -16,37 +15,25 @@
 <body>
 
     <?php
-        // ensure db connection
-        require("db.php");
-
         // start a session
         session_start();
+
+        // check if the user is logged in
+        if (!isset($_SESSION["user_id"])) {
+            header("Location: login.php");
+            exit();
+        }
+
+        // establish db connection
+        require("db.php");
 
         // import helper methods
         require("helper.php");
 
-        // check if the user is logged in
-        // if not, redirect to login page
-        if (!isset($_SESSION["user_id"])) {
-            header("Location: login.php");
-            exit();
-        } else {
-            // if successful, check the account type of user
-            // if not an individual or club, redirect back to login page
-            if ($_SESSION["account_type"] == 1 || $_SESSION["account_type"] == 0) {
-                // do nothing
-            } else if ($_SESSION["account_type"] == 28) {
-                header("Location: admin_dashboard.php");
-                exit();
-            } else {
-                header("Location: login.php");
-                exit();
-            }
-        }
-
         // retrieve user details
         $user_details = get_user_details($_SESSION["user_id"], "user_id");
     ?>
+
 
     <div id="wrapper">
         <div style="background: rgba(235, 174, 142, 1); min-height: 100vh;">
@@ -103,56 +90,38 @@
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
                 <nav id = "mybar" class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="icons-house">
-                        <div class="eye" id="eye1"><p class="visibility-text1">Member Acquisition:</p>
-                            <div class="visibility"><i id = "lock" class="fa-sharp fa-solid fa-lock"></i></div>
-                    </div>
-                        <div class="eye"><p class="visibility-text">Project Visibility:</p><div class="visibility"><i id = "eye-slash" class="fa-solid fa-eye"></i></div></div>
-                        <div class="eye">
-                            <div class="visibility2" onclick="showform()">
-                                <i style="width:20px; text-align:center;"id = "visibility2" class="fa-sharp fa-solid fa-ellipsis-vertical"></i>
-                                <span class="tooltiptext">
-                                    <ul style="list-style-type: none;">
-                                        <li id="add-member">Add new members</li>
-                                        <li id="invite-member">Invite members</li>
-                                    </ul>
-                                </span>
-                            </div>
-                            
-                        </div>
-                    </div>
+                    <h3 style="padding-left: 1em" class="description">Requested Projects</h3>
                 </nav>
                 
 
                 <div class="container-fluid">
-                <h3 class="description">Your projects</h3>
-
-                    <div class="main-content">
-
-                        <!-- YOUR PROJECTS -->
-                        <div class="page-header">
-
-                            <div class="cards">
-                                <section id = "projects">
-                                    <div class="row mb-5 ">
+                    <div class="content">
+                        <!-- REQUESTED PROJECTS -->
+                        
+                        <div class="cards">
+                            <section id = "projects">
+                                <div class="row mb-5 ">
+                                    <div class="row g-3">
                                         <?php 
+                                            // retrieve and echo requested projects
+                                            $get_sql = $connection->prepare("SELECT * FROM requested_project WHERE user_id=?");
+                                            $get_sql->bind_param("i", $_SESSION["user_id"]);
+                                            $get_sql->execute();
+                                            $row = $get_sql->get_result();
 
-                                            // retrieve and echo user projects
-                                            $projects = get_user_projects($_SESSION["user_id"]);
+                                            // check if the request was successful
+                                            if ($row->num_rows > 0) {
+                                                // fetch associated data from get request
+                                                $requested_projects = $row->fetch_all();
+                                                // loop through returned result and echo project name
+                                                foreach ($requested_projects as $requested_project) {
+                                                    $RPROJECT_ID_INDEX = 1;
 
-                                            // check if the query returned a result
-                                            if ($projects != -1) {
-                                                // project_members indexes in resulting array
-                                                $USER_ID_INDEX = 0;
-                                                $PROJECT_ID_INDEX = 1;
-                                                $ROLE_ID_INDEX = 2;
-                                                
-                                                // loop through returned projects and display to user
-                                                foreach ($projects as $project) {
-                                                    $project_details = get_project_details($project[$PROJECT_ID_INDEX], "project_id");
+                                                    // retrieve information for the project
+                                                    $project_details = get_project_details($requested_project[$RPROJECT_ID_INDEX], "project_id");
 
-                                                    // if project has been deleted, don't show it
-                                                    if ($project_details["is_deleted"] == 0) {
+                                                    // if the project hasn't been deleted and the project member acquisition is open, display project
+                                                    if ($project_details["is_deleted"] != 1 && $project_details["member_acquisition"] == "Open") {
                                                         echo '<div class="col-lg-4 col-sm-6">' .
                                                                 '<div class="project">' .
                                                                     '<a href="/WebTech_TeamProject/WebGeeks/view_project.php?project_id=' . $project_details["project_id"] . '">' . 
@@ -161,21 +130,21 @@
                                                                 '</div>' .
                                                         
                                                                 $project_details["project_name"] .
-                                                            '</div>';
-                                                        // '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/update_project.php?project_id=' . $project_details["project_id"] . '">Edit</a>' .
-                                                        // '<a style="padding-left: 20px" href="' . '/WebTech_TeamProject/Project/delete_project.php?project_id=' . $project_details["project_id"] . '&action=delete">Delete</a><br>';
-                                                    } else {
-                                                        echo 'You have not created any project yet. Click <a href="create_project.php">here</a> to create one. <br>';
-                                                    }
+                                                                '</div>';
+
+                                                        // echo '<a href="/WebTech_TeamProject/Project/view_project.php?project_id=' . $project_details["project_id"] . '">' . $project_details["project_name"] . '</a>'; 
+                                                        // '<a style="padding-left: 20px" href="/WebTech_TeamProject/Project/delete_request.php?project_id=' . $project_details["project_id"] . '&action=delete-request">Delete Request</a><br>';                
+                                                    } 
                                                 }
                                             } else {
-                                                echo 'You have not created any project yet. Click <a href="create_project.php">here</a> to create one. <br>';
-                                            }                         
+                                                echo '<br><br><strong>You have not requested to join any project yet.</strong>';
+                                            }
+                                                                    
                                         ?>
                                     </div>
-                                </section>
-                            </div> 
-                        </div>
+                                </div>
+                            </section>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -185,13 +154,10 @@
     <footer class="bg-white sticky-footer">
         <div class="container my-auto"></div>
     </footer>
-
-    </div>
-        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/theme.js"></script>
-
 </body>
+
 </html>

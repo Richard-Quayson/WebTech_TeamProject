@@ -8,12 +8,14 @@
   
 .content {
     display: flex;
+    align-items:center; 
+    justify-content:center;
 }
+
 img#profile.rounded-circle{
     justify-content: center;
     width:100%;
     height:100%;
-
 }
 
 .left {
@@ -30,8 +32,8 @@ img#profile.rounded-circle{
 }
 
 img#profile{
-transform: translate(30%, -8%);
-padding:8%;
+    transform: translate(30%, -8%);
+    padding:8%;
 }
 
 
@@ -56,6 +58,16 @@ li a:hover{
 #member-role  {
     flex: 3;
 }
+
+#logout-btn {
+    margin-top: 10vh;
+    padding: 24px, 24px;
+    border-width: 2px;
+    border-color:rgb(99, 51, 9) ;
+    border-radius: 0;
+    background-color: rgba(250, 176, 135, 0.88);
+}
+
 
 #member-title {
     font-weight: bold;
@@ -297,4 +309,21 @@ h3.description{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+#accept{
+    /* padding: 30px, 30px; */
+    border-radius: 5px;
+    border-width: 2px;
+    color: #000;
+    border-color:rgba(250, 176, 135, 0.88); 
+    background-color: #f1f5f9;
+}
+
+#decline{
+    padding: 24px, 24px;
+    border-width: 2px;
+    color: #000;
+    border-color:red; ;
+    background-color: #f1f5f9;
 }
