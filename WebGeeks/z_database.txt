@@ -1,0 +1,92 @@
+create database test_PMS;
+
+create table Account(
+	user_id int primary key auto_increment,
+    firstname varchar(50) not null,
+    lastname varchar(50) not null,
+    email varchar(100) not null unique,
+    user_password varchar(255) not null,
+    account_type int not null default 1,
+    is_active boolean default True,
+    start_date datetime default current_timestamp,
+    last_login datetime default current_timestamp
+);
+
+create table Password_Reset(
+    email varchar(100) not null,
+    reset_key varchar(255) not null,
+    expDate datetime not null
+);
+
+alter table account 
+add profile_image varchar(150);
+
+create table Social(
+    social_id int auto_increment primary key,
+    name varchar(50) not null,
+    url varchar(150) not null unique,
+    url_type varchar(25) not null
+);
+
+create table User_Socials(
+    social_id int not null,
+    user_id int not null,
+    foreign key (social_id) references Social (social_id) on delete cascade on update cascade,
+    foreign key (user_id) references Account (user_id) on delete cascade on update cascade
+);  
+
+create table Project_Role(
+    role_id int auto_increment primary key,
+    role_name varchar(50) not null,
+    role_description varchar(255) not null
+);
+
+insert into project_role (role_name, role_description)
+values ("Admin", "The admin of the project.");
+
+create table Project(
+    project_id int auto_increment primary key,
+    user_id int not null,
+    project_name varchar(100) not null unique,
+    project_description varchar(255) not null,
+    project_image varchar(100),
+    visibility varchar(10) not null,
+    member_acquisition varchar(10) not null,
+    foreign key (user_id) references Account (user_id) on delete cascade on update cascade
+);
+
+alter table project
+add is_deleted bit default 0;
+
+create table User_Roles(
+    user_id int not null,
+    role_id int not null,
+    foreign key (user_id) references Account (user_id) on delete cascade on update cascade,
+    foreign key (role_id) references Project_Role (role_id) on delete cascade on update cascade
+);
+
+create table Project_Members(
+    user_id int not null,
+    project_id int not null,
+    role_id int not null,
+    foreign key (user_id) references Account (user_id) on delete cascade on update cascade,
+    foreign key (project_id) references Project (project_id) on delete cascade on update cascade,
+    foreign key (role_id) references Project_Role (role_id) on delete cascade on update cascade
+);
+
+create table Requested_Project(
+    user_id int not null,
+    project_id int not null,
+    date_of_request datetime default current_timestamp,
+    foreign key (user_id) references Account (user_id) on delete cascade on update cascade,
+    foreign key (project_id) references Project (project_id) on delete cascade on update cascade
+);
+
+create table invited_members(
+    project_id int not null,
+    email varchar(100) not null,
+    role_id int not null,
+    exp_date datetime not null,
+    foreign key (project_id) references Project (project_id) on delete cascade on update cascade,
+    foreign key (role_id) references Project_Role (role_id) on delete cascade on update cascade
+);
