@@ -78,7 +78,7 @@
                     // creating email message
 
                     $recipient_email = $email;
-                    $sender_email = "projectile.webgeeks@gmail.com";
+                    $sender_email = $_ENV["SENDER_EMAIL"];
 
                     $subject = 'Password Reset for ' . $user["firstname"] . ' ' . $user["lastname"] . ' - WebGeeks.com';
                     
@@ -101,7 +101,7 @@
                     $mail->Host = "smtp.gmail.com";                  // set gmail as the SMTP server
                     $mail->Port = 465;                               // set the SMTP port for the server 
                     $mail->Username = $sender_email;                 // sender email
-                    $mail->Password = "mgsyuknntllkmdel";            // sender's gmail app password
+                    $mail->Password = $_ENV["SENDER_PASSWORD"];      // sender's gmail app password
                     $mail->From = $sender_email;                     // sender email
                     $mail->FromName = "Web Geeks";                   // sender's name
                     $mail->AddAddress($recipient_email);             // add recipient email
